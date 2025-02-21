@@ -34,9 +34,9 @@ public class CharactersMoment : MonoBehaviour
         rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
 
         if (horizontalInput > 0)
-            transform.localScale = new Vector3(1, 1, 1);
-        if (horizontalInput < 0)
             transform.localScale = new Vector3(-1, 1, 1);
+        if (horizontalInput < 0)
+            transform.localScale = new Vector3(1, 1, 1);
     }
 
     void Update()
