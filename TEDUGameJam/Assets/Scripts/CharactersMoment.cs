@@ -10,6 +10,8 @@ public class CharactersMoment : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
 
     private Rigidbody2D rb;
+    private Animator animator;
+
     private bool isGrounded;
     private int jumpCount;
     private int maxJumpCount = 2;
@@ -21,6 +23,7 @@ public class CharactersMoment : MonoBehaviour
     {
         jumpCount = maxJumpCount;
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
       
     }
 
@@ -28,7 +31,12 @@ public class CharactersMoment : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
-
+        if (horizontalInput == 0) {
+            animator.SetBool("isRunning", false);
+        }
+        else {
+            animator.SetBool("isRunning", true);
+        }
         if (horizontalInput > 0)
             transform.localScale = new Vector3(1, 1, 1);
         if (horizontalInput < 0)

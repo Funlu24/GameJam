@@ -2629,6 +2629,7 @@ GameObject:
   - component: {fileID: 759134269}
   - component: {fileID: 759134268}
   - component: {fileID: 759134274}
+  - component: {fileID: 759134275}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -2808,13 +2809,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 759134267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70a6dabfa2f0d4f4dac0ecd60261a355, type: 3}
+  m_Script: {fileID: 11500000, guid: 015592edd10350e479073753eb7dd153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallDamageThreshold: -10
-  damageMultiplier: 5
-  health: 100
-  rb: {fileID: 0}
+  gOScreen: {fileID: 0}
+  fillStatusBar: {fileID: 0}
+  currentHealth: 0
+  maxHealth: 100
+  animator: {fileID: 759134275}
+  rb: {fileID: 759134271}
+--- !u!95 &759134275
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759134267}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 156f3df719b5fa445bb1015944ae23cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &799890146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,6 +3099,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e825bc8a96f8214796d8a60dfd4d234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkInterval: 1
+  damageAmount: 10
+  beamSprite: {fileID: 0}
 --- !u!212 &1052134429
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3410,6 +3437,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e825bc8a96f8214796d8a60dfd4d234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkInterval: 1
+  damageAmount: 10
+  beamSprite: {fileID: 0}
 --- !u!212 &1137788217
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3653,7 +3683,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 83e8e0ea94507d74ab9e5d39090ede66, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.191
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4009,6 +4039,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e825bc8a96f8214796d8a60dfd4d234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkInterval: 1
+  damageAmount: 10
+  beamSprite: {fileID: 0}
 --- !u!212 &1350078429
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4999,6 +5032,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e825bc8a96f8214796d8a60dfd4d234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkInterval: 1
+  damageAmount: 10
+  beamSprite: {fileID: 0}
 --- !u!212 &1655264586
 SpriteRenderer:
   m_ObjectHideFlags: 0
