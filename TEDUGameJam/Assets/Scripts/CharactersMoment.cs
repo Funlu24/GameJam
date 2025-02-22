@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class CharactersMoment : MonoBehaviour
 {
-
-
-
     [SerializeField] float playerSpeed = 10f;
     [SerializeField] float jumpForce = 10f;
-    
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayer;
-    
 
     private Rigidbody2D rb;
     private bool isGrounded;
