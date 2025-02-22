@@ -6,8 +6,7 @@ public class FallingObjectSpawner : MonoBehaviour
 {
     public GameObject fallingObjectPrefab;
     public float spawnInterval = 1.0f;
-    [SerializeField] public float spawnHeightOffset = 5.0f;
-
+    [SerializeField] public float spawnHeightOffset = 4.0f;
     private bool isSpawning = false;
     private Coroutine spawnCoroutine;
 
@@ -17,7 +16,6 @@ public class FallingObjectSpawner : MonoBehaviour
             spawnCoroutine = StartCoroutine(SpawnObjects());
         }
     }
-
     private void OnTriggerExit2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             isSpawning = false;
@@ -26,7 +24,6 @@ public class FallingObjectSpawner : MonoBehaviour
             }
         }
     }
-
     private IEnumerator SpawnObjects() {
         while (isSpawning) {
             Vector3 spawnPosition = transform.position + new Vector3(0, spawnHeightOffset, 0);
