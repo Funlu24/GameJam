@@ -24,6 +24,7 @@ public class CharactersMoment : MonoBehaviour
 
     void Start()
     {
+        jumpCount = maxJumpCount;
         rb = GetComponent<Rigidbody2D>();
       
     }
@@ -50,11 +51,6 @@ public class CharactersMoment : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpCount++;
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            
         }
     }
 }
