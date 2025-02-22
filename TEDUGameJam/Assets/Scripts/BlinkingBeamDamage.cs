@@ -47,10 +47,10 @@ public class BlinkingBeamDamage : MonoBehaviour
         if (other.CompareTag("Player") && !isBeamOn)
         {
             // Örneğin, oyuncunuzun "PlayerHealth" ya da "DamageReceiver" scripti varsa, aşağıdaki gibi hasar verebilirsiniz:
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            //PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            //if (playerHealth != null)
             {
-                playerHealth.TakeDamage(damageAmount);
+              //playerHealth.TakeDamage(damageAmount);
                 Debug.Log("Işın kapalıyken oyuncuya hasar verildi: " + damageAmount);
             }
             // Eğer oyuncunuz farklı bir hasar scripti kullanıyorsa, uygun referansı alıp hasar verme işlemini düzenleyin.
