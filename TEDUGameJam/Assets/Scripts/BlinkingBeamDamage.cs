@@ -3,15 +3,14 @@ using UnityEngine;
 
 public class BlinkingBeamDamage : MonoBehaviour
 {
-    // Işığın tam bir döngü için toplam süresi (örneğin 1 saniye: 0.5 saniye açık, 0.5 saniye kapalı)
-    public float blinkInterval = 1f;
-    // Işığın kapalıyken (sönük) oyuncuya vereceği hasar miktarı
-    public int damageAmount = 10;
-    // Işığın görselini temsil eden SpriteRenderer (atama yapmazsanız, script bulunduğu GameObject'ten alınır)
-    public SpriteRenderer beamSprite;
+    public float blinkInterval = 1f; // Işığın yanıp sönme süresi
+    public int damageAmount = 10; // Işığın vereceği hasar miktarı
+    public float damageCooldown = 0.5f; // Hasar tekrar süresi (0.5 saniyede bir hasar verir)
 
-    // Işığın şu an açık olup olmadığını takip eder
-    private bool isBeamOn = true;
+    public SpriteRenderer beamSprite; // Işığın SpriteRenderer bileşeni
+    private bool isBeamOn = true; // Işığın açık olup olmadığını takip eder
+    private bool playerInside = false; // Oyuncu ışığın içinde mi?
+    private float lastDamageTime; // En son ne zaman hasar alındı?
 
     void Start()
     {
@@ -21,7 +20,6 @@ public class BlinkingBeamDamage : MonoBehaviour
         StartCoroutine(BlinkRoutine());
     }
 
-    // Işığın yanıp sönmesini sağlayan Coroutine
     private IEnumerator BlinkRoutine()
     {
         while (true)
@@ -32,28 +30,57 @@ public class BlinkingBeamDamage : MonoBehaviour
                 beamSprite.enabled = true;
             yield return new WaitForSeconds(blinkInterval / 2f);
 
-            // Işığı kapat (sönük hale getir)
+            // Işığı kapat
             isBeamOn = false;
             if (beamSprite != null)
                 beamSprite.enabled = false;
+
+            // Eğer oyuncu içerdeyse hemen hasar ver
+            if (playerInside)
+            {
+                TryToGiveDamage();
+            }
+
             yield return new WaitForSeconds(blinkInterval / 2f);
         }
     }
 
-    // Oyuncu, ışının trigger alanına girdiğinde
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // "Player" tag'ına sahip oyuncu, ışık kapalıyken hasar alacak
-        if (other.CompareTag("Player") && !isBeamOn)
+        if (other.CompareTag("Player"))
         {
-            // Örneğin, oyuncunuzun "PlayerHealth" ya da "DamageReceiver" scripti varsa, aşağıdaki gibi hasar verebilirsiniz:
-            //PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            //if (playerHealth != null)
+            playerInside = true;
+            // Eğer ışık kapalıysa hemen hasar ver
+            if (!isBeamOn)
             {
-              //playerHealth.TakeDamage(damageAmount);
-                Debug.Log("Işın kapalıyken oyuncuya hasar verildi: " + damageAmount);
+                TryToGiveDamage();
             }
-            // Eğer oyuncunuz farklı bir hasar scripti kullanıyorsa, uygun referansı alıp hasar verme işlemini düzenleyin.
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInside = false;
+
+        }
+    }
+
+    private void TryToGiveDamage()
+    {
+        if (!isBeamOn && Time.time - lastDamageTime >= damageCooldown) // Işık kapalıysa ve cooldown geçtiyse
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(damageAmount);
+                    lastDamageTime = Time.time; // Hasar zamanını güncelle
+                }
+            }
         }
     }
 }
