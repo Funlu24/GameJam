@@ -15,6 +15,7 @@ public class CharactersMoment : MonoBehaviour
     private bool isGrounded;
     private int jumpCount;
     private int maxJumpCount = 2;
+    private Vector3 platformVelocity = Vector3.zero;
     
 
     private float horizontalInput;
@@ -45,6 +46,7 @@ public class CharactersMoment : MonoBehaviour
 
     void Update()
     {
+        transform.position += platformVelocity;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
         if (isGrounded)
@@ -56,5 +58,14 @@ public class CharactersMoment : MonoBehaviour
             jumpCount++;
         }
     }
+    public void SetPlatformVelocity(Vector3 velocity)
+    {
+        platformVelocity = velocity;
+    }
+    public void ResetPlatformVelocity()
+    {
+        platformVelocity = Vector3.zero;
+    }   
+    
 }
    
