@@ -17,21 +17,23 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
     }
-       public void Heal(int healAmount)
+
+    public void Heal(int healAmount)
     {
         currentHealth += healAmount;
-        
-        if (currentHealth > maxHealth) 
+
+        if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
     }
-        private void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("HealthPickup")) 
+        if (other.CompareTag("HealthPickup"))
         {
-            Heal(50); 
-            Destroy(other.gameObject); 
+            Heal(50);
+            Destroy(other.gameObject);
         }
         if (other.CompareTag("Deadly"))
         {
@@ -42,7 +44,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (currentHealth <= 0) return; // E�er zaten �l� ise i�lemi iptal et
+        if (currentHealth <= 0) return; // Eğer zaten ölü ise işlemi iptal et
 
         currentHealth -= amount;
 
@@ -51,12 +53,18 @@ public class PlayerHealth : MonoBehaviour
             Die();
         }
     }
-    
+
     void Die()
     {
-        animator.SetBool("isDead", true);
-        gOScreen.SetActive(true);
-        Destroy(this.gameObject, 1.5f);
-        //Time.timeScale = 0f;
+        animator.SetBool("isDead", true); // Ölüm animasyonunu tetikle
+        gOScreen.SetActive(true); // Game Over ekranını aç
+        StartCoroutine(ShowGameOverScreen()); // Game Over ekranını açan coroutine çalıştır
+        Destroy(this.gameObject); // Karakteri 1.5 saniye sonra yok et
+    }
+
+    IEnumerator ShowGameOverScreen()
+    {
+        yield return new WaitForSeconds(1.5f); // Ölüm animasyonu oynasın diye 1.5 saniye bekle
+        FindObjectOfType<GameOverScreen>().ShowGameOverScreen(); // Game Over ekranını aç
     }
 }
