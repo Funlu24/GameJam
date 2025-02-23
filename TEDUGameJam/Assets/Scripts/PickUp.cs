@@ -8,7 +8,6 @@ public class PickUp : MonoBehaviour
     private bool playerInRange = false;
     void Update()
     {
-
         if (playerInRange && Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("Obje alındı!");
